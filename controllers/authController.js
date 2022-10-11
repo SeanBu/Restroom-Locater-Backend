@@ -4,28 +4,9 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User } = require('../models/')
-
+const verifyJWT = require("../middleware/verify");
 
 const router = express.Router();
-
-function verifyJWT(req, res, next) {
-    const token = req.headers["x-access-token"]?.split(' ')[1]
-
-    if (token) {
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-            if (err) return res.json({
-                isLoggedIn: false,
-                message: 'Authentication failed.'
-            })
-            req.user = {};
-            req.user.id = decoded.id
-            req.user.username = decoded.username
-            next()
-        })
-    } else {
-        res.json({ message: 'Incorrect token.', isLoggedIn: false })
-    }
-}
 
 router.post('/register', async (req, res) => {
     const user = req.body;
