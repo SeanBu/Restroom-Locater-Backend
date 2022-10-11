@@ -5,7 +5,9 @@ const express = require('express');
 const methodOverride = require('method-override');
 const cors = require('cors');
 const morgan = require('morgan')
+
 const mainController = require('./controllers/mainController');
+const authController = require('./controllers/authController');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -16,5 +18,6 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use('/', mainController);
+app.use('/auth', authController);
 
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
