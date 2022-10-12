@@ -10,14 +10,12 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     const user = req.body;
-    console.log(req.body);
     const submittedUserName = await User.findOne({ username: user.username });
     const submittedEmail = await User.findOne({ email: user.email });
 
     if (submittedEmail || submittedUserName) {
         res.json({ message: "Username or Email already in use." })
     } else {
-        console.log(user);
         user.password = await bcrypt.hash(req.body.password, 12)
 
         const newUser = new User({
@@ -61,8 +59,8 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/username', verifyJWT, (req, res) => {
-    res.json({ isLoggedIn: true, username: req.user.username })
-});
+router.get("/isUserAuth", verifyJWT, (req, res) => {
+    return res.json({ isLoggedIn: true, username: req.user.username })
+})
 
 module.exports = router;
