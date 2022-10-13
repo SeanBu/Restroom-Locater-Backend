@@ -50,6 +50,7 @@ router.post('/login', async (req, res) => {
                 if (err) return res.json({ message: err });
                 return res.json({
                     message: 'Login Successful',
+                    id: foundUser._id,
                     token: 'Bearer ' + token
                 });
             }
