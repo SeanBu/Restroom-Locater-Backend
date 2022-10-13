@@ -33,12 +33,16 @@ router.get("/getmarkers", async (req, res) => {
     const Restrooms = await Restroom.find({});
     const markers = [];
     for (let i = 0; i < Restrooms.length; i++) {
-        const marker = { lat: 0, lng: 0 };
+        const marker = { lat: 0, lng: 0, address: "123 1st st", cleanlinessRating: 0, locationRating: 0, description: "No Description Avaliable", image: "" };
         marker.lat = Restrooms[i].lat;
         marker.lng = Restrooms[i].lng;
+        marker.address = Restrooms[i].address;
+        marker.cleanlinessRating = Restrooms[i].cleanlinessRating;
+        marker.description = Restrooms[i].description;
+        marker.image = Restrooms[i].image;
         markers.push(marker);
     }
-    res.json(markers);
+    return res.json(markers);
 })
 
 module.exports = router;
