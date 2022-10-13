@@ -29,4 +29,16 @@ router.post("/newlocation", async (req, res) => {
 
 })
 
+router.get("/getmarkers", async (req, res) => {
+    const Restrooms = await Restroom.find({});
+    const markers = [];
+    for (let i = 0; i < Restrooms.length; i++) {
+        const marker = [];
+        marker.push(Restrooms[i].lat);
+        marker.push(Restrooms[i].lng);
+        markers.push(marker);
+    }
+    res.json(markers);
+})
+
 module.exports = router;
