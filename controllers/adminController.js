@@ -12,17 +12,28 @@ router.get("/reports", async (req, res) => {
     return res.json(reports);
 })
 
-router.get("/submissions", async (req, res) => {
-
+router.get("/numreports", async (req, res) => {
+    const reportedSubmission = await Submission.find({ reported: true });
+    return res.json(reportedSubmission.length)
 })
 
 router.get("/restrooms", async (req, res) => {
-
+    const restrooms = await Restroom.find({});
+    return res.json(restrooms.length);
 })
 
 router.get("/users", async (req, res) => {
-
+    const users = await User.find({});
+    return res.json(users.length);
 })
+
+router.get("/submissions", async (req, res) => {
+    const submissions = await Submission.find({});
+    return res.json(submissions.length);
+})
+
+
+
 
 router.put("/report", async (req, res) => {
     console.log(req.body)
