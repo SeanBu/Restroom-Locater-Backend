@@ -1,5 +1,6 @@
 const express = require('express');
-const { User, Restroom, Submission } = require('../models/')
+const { User, Restroom, Submission } = require('../models/');
+const { route } = require('./mainController');
 
 const router = express.Router();
 
@@ -25,6 +26,15 @@ router.get("/restrooms", async (req, res) => {
 router.get("/users", async (req, res) => {
     const users = await User.find({});
     return res.json(users.length);
+})
+
+router.get("/allusers", async (req, res) => {
+    sendUsers = [];
+    const users = await User.find({});
+    for (let i = 0; i < users.length; i++) {
+        sendUsers.push(users)
+    }
+    return res.json(sendUsers);
 })
 
 router.get("/submissions", async (req, res) => {
