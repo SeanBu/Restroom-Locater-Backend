@@ -7,9 +7,7 @@ const router = express.Router();
 router.get("/reports", async (req, res) => {
     const reports = []
     const reportedSubmissions = await Submission.find({ reported: true }).populate('restroom').populate('user');
-    for (let i = 0; i < reportedSubmissions.length; i++) {
-        reports.push(reportedSubmissions)
-    }
+    reports.push(reportedSubmissions)
     return res.json(reports);
 })
 
@@ -23,6 +21,14 @@ router.get("/restrooms", async (req, res) => {
     return res.json(restrooms.length);
 })
 
+router.get("/allrestrooms", async (req, res) => {
+    allRestrooms = [];
+    const restrooms = await Restroom.find({});
+    allRestrooms.push(restrooms);
+    return res.json(allRestrooms);
+})
+
+
 router.get("/users", async (req, res) => {
     const users = await User.find({});
     return res.json(users.length);
@@ -31,15 +37,20 @@ router.get("/users", async (req, res) => {
 router.get("/allusers", async (req, res) => {
     sendUsers = [];
     const users = await User.find({});
-    for (let i = 0; i < users.length; i++) {
-        sendUsers.push(users)
-    }
+    sendUsers.push(users);
     return res.json(sendUsers);
 })
 
 router.get("/submissions", async (req, res) => {
     const submissions = await Submission.find({});
     return res.json(submissions.length);
+})
+
+router.get('/allsubmissions', async (req, res) => {
+    const allSubmissions = [];
+    const submissions = await Submission.find({});
+    allSubmissions.push(submissions);
+    return res.json(allSubmissions);
 })
 
 
