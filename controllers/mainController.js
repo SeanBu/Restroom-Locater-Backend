@@ -41,6 +41,7 @@ router.get("/getmarkers", async (req, res) => {
         marker.locationRating = Restrooms[i].locationRating;
         marker.description = Restrooms[i].description;
         marker.image = Restrooms[i].image;
+        marker.restroom = Restrooms[i]._id;
         markers.push(marker);
     }
     return res.json(markers);
