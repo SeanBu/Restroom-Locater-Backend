@@ -1,5 +1,6 @@
 const express = require('express');
 const { User, Restroom, Submission } = require('../models/');
+const { find } = require('../models/User');
 const { route } = require('./mainController');
 
 const router = express.Router();
@@ -44,6 +45,28 @@ router.get("/allrestrooms", async (req, res) => {
     }
 })
 
+router.get("/editrestroom/:id", async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const restroom = await Restroom.findById(req.params.id).exec();
+        return res.json(restroom);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.put("/editrestroom/:id", async (req, res) => {
+    try {
+
+        const filter = { _id: req.params.id };
+        const update = req.body;
+
+        const editedRestroom = await Restroom.findOneAndUpdate(filter, update, { new: true });
+        return res.json(editedRestroom)
+    } catch (err) {
+        return res.json(err);
+    }
+})
 
 router.get("/users", async (req, res) => {
     try {
